@@ -1,71 +1,123 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
 import com.org.swasth_id_backend.dto.UserDto;
+import com.org.swasth_id_backend.dto.UserUpdateDto;
 import com.org.swasth_id_backend.entity.User;
+import com.org.swasth_id_backend.exception.ResourceNotFoundException;
 import com.org.swasth_id_backend.repo.UserRepository;
 import com.org.swasth_id_backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Override
+    public UserDto registerUser(UserDto userDto) {
+        if (userRepository.existsByUsername(userDto.getUsername())) {
+            throw new IllegalArgumentException("Username is already taken");
+        }
+        if (userRepository.existsByEmail(userDto.getEmail())) {
+            throw new IllegalArgumentException("Email is already in use");
+        }
+
+        User user = userDto.toEntity();
+
+        // Encode the password before saving
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        // Assign defaults
+        user.setRole("USER");
+        user.setPatientId("SWA" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+        user.setEnabled(true);
+
+        User savedUser = userRepository.save(user);
+        return UserDto.fromEntity(savedUser);
     }
 
     @Override
-    public User registerUser(UserDto userDto) {
-        User user = User.builder()
-                .username(userDto.getUsername())
-                .email(userDto.getEmail())
-                .age(userDto.getAge())
-                .bloodGroup(userDto.getBloodGroup())
-                .password(userDto.getPassword()) // Encrypt in production!
-                .build();
-        return userRepository.save(user);
+    public UserDto updateUserProfile(Long userId, UserUpdateDto updateDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+        // Perform a partial update
+        if (updateDto.getUsername() != null) {
+            user.setUsername(updateDto.getUsername());
+        }
+        if (updateDto.getAge() != null) {
+            user.setAge(updateDto.getAge());
+        }
+        if (updateDto.getBloodGroup() != null) {
+            user.setBloodGroup(updateDto.getBloodGroup());
+        }
+
+        User updatedUser = userRepository.save(user);
+        return UserDto.fromEntity(updatedUser);
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+    @Transactional(readOnly = true)
+    public Optional<UserDto> findUserById(Long userId) {
+        return userRepository.findById(userId).map(UserDto::fromEntity);
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    @Transactional(readOnly = true)
+    public Optional<UserDto> findUserByEmail(String email) {
+        return userRepository.findByEmail(email).map(UserDto::fromEntity);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    @Transactional(readOnly = true)
+    public Optional<UserDto> findUserByUsername(String username) {
+        return userRepository.findByUsername(username).map(UserDto::fromEntity);
     }
 
     @Override
-    public User updateUser(Long id, UserDto userDto) {
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
-
-        existingUser.setUsername(userDto.getUsername());
-        existingUser.setEmail(userDto.getEmail());
-        existingUser.setAge(userDto.getAge());
-        existingUser.setBloodGroup(userDto.getBloodGroup());
-        existingUser.setPassword(userDto.getPassword()); // Encrypt in production
-
-        return userRepository.save(existingUser);
+    @Transactional(readOnly = true)
+    public Optional<UserDto> findUserByPatientId(String patientId) {
+        return userRepository.findByPatientId(patientId).map(UserDto::fromEntity);
     }
 
     @Override
-    public void deleteUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
-        userRepository.delete(user);
+    @Transactional(readOnly = true)
+    public Page<UserDto> findAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(UserDto::fromEntity);
+    }
+
+    @Override
+    public void deactivateUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void reactivateUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found with id: " + userId);
+        }
+        userRepository.deleteById(userId);
     }
 }
