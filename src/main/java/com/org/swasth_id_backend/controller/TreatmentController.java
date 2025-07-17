@@ -1,82 +1,65 @@
 package com.org.swasth_id_backend.controller;
 
+import com.org.swasth_id_backend.dto.TreatmentCreationDto;
 import com.org.swasth_id_backend.dto.TreatmentDto;
-import com.org.swasth_id_backend.entity.Treatment;
+import com.org.swasth_id_backend.dto.TreatmentUpdateDto;
+import com.org.swasth_id_backend.exception.ResourceNotFoundException;
 import com.org.swasth_id_backend.service.TreatmentService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
-/**
- * REST controller for managing Treatment resources.
- */
-@Tag(name = "treatment")
 @RestController
-@RequestMapping("/api/treatments")
+@RequestMapping("/api")
+@Tag(name = "Treatment Controller", description = "Endpoints for managing medical treatments")
 @RequiredArgsConstructor
 public class TreatmentController {
 
     private final TreatmentService treatmentService;
 
-    /**
-     * Create a new treatment.
-     * @param dto Data for the new treatment
-     * @return Message confirming creation
-     */
-    @PostMapping
-    public ResponseEntity<String> createTreatment(@RequestBody @Valid TreatmentDto dto) {
-        Treatment created = treatmentService.createTreatment(dto);
-        String message = "✅ Treatment created successfully with ID: " + created.getTreatmentId();
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+    @Operation(summary = "Add a new treatment record for a specific user")
+    @PostMapping("/users/{userId}/treatments")
+    public ResponseEntity<TreatmentDto> addTreatmentToUser(
+            @PathVariable Long userId,
+            @Valid @RequestBody TreatmentCreationDto creationDto) {
+        TreatmentDto newTreatment = treatmentService.addTreatmentToUser(userId, creationDto);
+        return new ResponseEntity<>(newTreatment, HttpStatus.CREATED);
     }
 
-    /**
-     * Get a treatment by ID.
-     * @param id Treatment ID
-     * @return Treatment object if found
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<Treatment> getTreatmentById(@PathVariable Long id) {
-        return ResponseEntity.ok(treatmentService.getTreatmentById(id));
+    @Operation(summary = "Get all treatments for a specific user")
+    @GetMapping("/users/{userId}/treatments")
+    public ResponseEntity<List<TreatmentDto>> getAllTreatmentsForUser(@PathVariable Long userId) {
+        List<TreatmentDto> treatments = treatmentService.findAllTreatmentsByUserId(userId);
+        return ResponseEntity.ok(treatments);
     }
 
-    /**
-     * List all treatments.
-     * @return List of treatments
-     */
-    @GetMapping
-    public ResponseEntity<List<Treatment>> getAllTreatments() {
-        return ResponseEntity.ok(treatmentService.getAllTreatments());
+    @Operation(summary = "Get a single treatment by its ID")
+    @GetMapping("/treatments/{treatmentId}")
+    public ResponseEntity<TreatmentDto> getTreatmentById(@PathVariable Long treatmentId) {
+        return treatmentService.findTreatmentById(treatmentId)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Treatment not found with id: " + treatmentId));
     }
 
-    /**
-     * Update a treatment by ID.
-     * @param id Treatment ID
-     * @param dto Updated treatment data
-     * @return Message confirming update
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateTreatment(
-            @PathVariable Long id,
-            @RequestBody @Valid TreatmentDto dto) {
-        Treatment updated = treatmentService.updateTreatment(id, dto);
-        String message = "🛠️ Treatment updated successfully for ID: " + updated.getTreatmentId();
-        return ResponseEntity.ok(message);
+    @Operation(summary = "Update an existing treatment (partial update)")
+    @PatchMapping("/treatments/{treatmentId}")
+    public ResponseEntity<TreatmentDto> updateTreatment(
+            @PathVariable Long treatmentId,
+            @Valid @RequestBody TreatmentUpdateDto updateDto) {
+        TreatmentDto updatedTreatment = treatmentService.updateTreatment(treatmentId, updateDto);
+        return ResponseEntity.ok(updatedTreatment);
     }
 
-    /**
-     * Delete a treatment by ID.
-     * @param id Treatment ID
-     * @return No content response
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTreatment(@PathVariable Long id) {
-        treatmentService.deleteTreatment(id);
+    @Operation(summary = "Delete a treatment by its ID")
+    @DeleteMapping("/treatments/{treatmentId}")
+    public ResponseEntity<Void> deleteTreatment(@PathVariable Long treatmentId) {
+        treatmentService.deleteTreatment(treatmentId);
         return ResponseEntity.noContent().build();
     }
 }

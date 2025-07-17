@@ -3,6 +3,9 @@ package com.org.swasth_id_backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -16,7 +19,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
-    private String username; // Can be full name or a chosen username
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -31,13 +34,17 @@ public class User {
     private String bloodGroup;
 
     @Column(name = "patient_id", unique = true, length = 20)
-    private String patientId; // e.g., "SWA123456"
+    private String patientId;
 
     @Column(length = 20)
-    private String role; // Optional: For RBAC - "USER", "ADMIN", etc.
+    private String role;
 
     private boolean enabled = true;
 
-    // Additional metadata fields can be added as needed
+    // --- MAPPING ADDED HERE ---
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private List<Treatment> treatments = new ArrayList<>();
 }
-
