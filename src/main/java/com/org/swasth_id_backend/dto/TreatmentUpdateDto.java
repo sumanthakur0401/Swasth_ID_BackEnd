@@ -1,5 +1,6 @@
 package com.org.swasth_id_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -31,11 +32,10 @@ public class TreatmentUpdateDto {
 
     private LocalDateTime dateOfTreatment;
 
+    @JsonProperty("isOngoing")
     private Boolean isOngoing;
 
     private Boolean followUpRequired;
-
-
 
     private LocalDateTime followUpDate;
 
