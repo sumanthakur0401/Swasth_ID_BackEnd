@@ -47,4 +47,13 @@ public class User {
     @EqualsAndHashCode.Exclude
     @Builder.Default
     private List<Treatment> treatments = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private List<MedicalHistory> history = new ArrayList<>();
+
+
 }

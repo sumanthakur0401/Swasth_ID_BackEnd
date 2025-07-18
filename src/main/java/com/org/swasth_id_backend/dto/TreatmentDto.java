@@ -2,6 +2,7 @@
 
 package com.org.swasth_id_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.org.swasth_id_backend.entity.Treatment;
 import com.org.swasth_id_backend.entity.User; // Import User entity
 import jakarta.validation.constraints.*;
@@ -32,6 +33,7 @@ public class TreatmentDto {
     @NotNull(message = "Date of treatment is required")
     private LocalDateTime dateOfTreatment;
 
+    @JsonProperty("isOngoing")
     private boolean isOngoing;
 
     private boolean followUpRequired;
