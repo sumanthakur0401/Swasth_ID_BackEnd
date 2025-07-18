@@ -48,7 +48,7 @@ public class TreatmentController {
     }
 
     @Operation(summary = "Update an existing treatment (partial update)")
-    @PatchMapping("/treatments/{treatmentId}")
+    @PutMapping("/treatments/{treatmentId}")
     public ResponseEntity<TreatmentDto> updateTreatment(
             @PathVariable Long treatmentId,
             @Valid @RequestBody TreatmentUpdateDto updateDto) {
