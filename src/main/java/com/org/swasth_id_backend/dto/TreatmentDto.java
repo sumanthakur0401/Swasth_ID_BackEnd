@@ -52,24 +52,24 @@ public class TreatmentDto {
      * @param treatment The Treatment entity to convert.
      * @return A new TreatmentDto instance.
      */
-    public static TreatmentDto fromEntity(Treatment treatment) {
-        if (treatment == null) {
-            return null;
-        }
-
-        return TreatmentDto.builder()
-                .userId(treatment.getUser().getId()) // Get user ID from the associated User
-                .diagnosis(treatment.getDiagnosis())
-                .prescribedMedicines(treatment.getPrescribedMedicines())
-                .recommendedTests(treatment.getRecommendedTests())
-                .notes(treatment.getNotes())
-                .dateOfTreatment(treatment.getDateOfTreatment())
-                .isOngoing(treatment.isOngoing())
-                .followUpRequired(treatment.isFollowUpRequired())
-                .followUpDate(treatment.getFollowUpDate())
-                .severity(treatment.getSeverity())
-                .build();
-    }
+//    public static TreatmentDto fromEntity(Treatment treatment) {
+//        if (treatment == null) {
+//            return null;
+//        }
+//
+//        return TreatmentDto.builder()
+//                .userId(treatment.getUser().getId()) // Get user ID from the associated User
+//                .diagnosis(treatment.getDiagnosis())
+//                .prescribedMedicines(treatment.getPrescribedMedicines())
+//                .recommendedTests(treatment.getRecommendedTests())
+//                .notes(treatment.getNotes())
+//                .dateOfTreatment(treatment.getDateOfTreatment())
+//                .isOngoing(treatment.isOngoing())
+//                .followUpRequired(treatment.isFollowUpRequired())
+//                .followUpDate(treatment.getFollowUpDate())
+//                .severity(treatment.getSeverity())
+//                .build();
+//    }
 
     /**
      * Converts this DTO to a Treatment entity.
@@ -77,18 +77,18 @@ public class TreatmentDto {
      * @param user The User entity to associate with this treatment.
      * @return A new Treatment entity.
      */
-    public Treatment toEntity(User user) {
-        return Treatment.builder()
-                .user(user) // Set the full user object
-                .diagnosis(this.diagnosis)
-                .prescribedMedicines(this.prescribedMedicines)
-                .recommendedTests(this.recommendedTests)
-                .notes(this.notes)
-                .dateOfTreatment(this.dateOfTreatment)
-                .isOngoing(this.isOngoing)
-                .followUpRequired(this.followUpRequired)
-                .followUpDate(this.followUpDate)
-                .severity(this.severity)
-                .build();
-    }
+//    public Treatment toEntity(User user) {
+//        return Treatment.builder()
+//                .user(user) // Set the full user object
+//                .diagnosis(this.diagnosis)
+//                .prescribedMedicines(this.prescribedMedicines)
+//                .recommendedTests(this.recommendedTests)
+//                .notes(this.notes)
+//                .dateOfTreatment(this.dateOfTreatment)
+//                .isOngoing(this.isOngoing)
+//                .followUpRequired(this.followUpRequired)
+//                .followUpDate(this.followUpDate)
+//                .severity(this.severity)
+//                .build();
+//    }
 }

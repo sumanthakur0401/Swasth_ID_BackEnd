@@ -4,9 +4,10 @@ import com.org.swasth_id_backend.entity.Treatment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List; // Import List
+import java.util.UUID;
 
 @Repository
-public interface TreatmentRepository extends JpaRepository<Treatment, Long> {
+public interface TreatmentRepository extends JpaRepository<Treatment, UUID> {
 
     /**
      * Finds all treatments associated with a specific user ID.

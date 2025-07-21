@@ -6,19 +6,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "treatment")
+@Table(name = "treatments")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Treatment {
+public class Treatment extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "treatment_id")
-    private Long treatmentId;
 
-    // --- MAPPING ADDED HERE ---
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
@@ -28,21 +24,9 @@ public class Treatment {
     @Column(name = "diagnosis", nullable = false)
     private String diagnosis;
 
-    @ElementCollection
-    @CollectionTable(name = "prescribed_medicines", joinColumns = @JoinColumn(name = "treatment_id"))
-    @Column(name = "medicine", nullable = false)
-    private List<String> prescribedMedicines;
-
-    @ElementCollection
-    @CollectionTable(name = "recommended_tests", joinColumns = @JoinColumn(name = "treatment_id"))
-    @Column(name = "test")
-    private List<String> recommendedTests;
 
     @Column(name = "notes", length = 2000)
     private String notes;
-
-    @Column(name = "date_of_treatment", nullable = false)
-    private LocalDateTime dateOfTreatment;
 
     @Column(name = "is_ongoing", nullable = false)
     private boolean isOngoing;

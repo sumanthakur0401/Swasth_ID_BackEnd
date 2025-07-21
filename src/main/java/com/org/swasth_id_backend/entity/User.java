@@ -9,14 +9,17 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Doctor doctor;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Patient patient;
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;
@@ -33,27 +36,22 @@ public class User {
     @Column(name = "blood_group", length = 5)
     private String bloodGroup;
 
-    @Column(name = "patient_id", unique = true, length = 20)
-    private String patientId;
-
     @Column(length = 20)
     private String role;
 
-    private boolean enabled = true;
+    private Boolean enabled = true;
 
-    // --- MAPPING ADDED HERE ---
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @Builder.Default
-    private List<Treatment> treatments = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @Builder.Default
-    private List<MedicalHistory> history = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @Builder.Default
+//    private List<Treatment> treatments = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @Builder.Default
+//    private List<MedicalHistory> history = new ArrayList<>();
 
 
 }

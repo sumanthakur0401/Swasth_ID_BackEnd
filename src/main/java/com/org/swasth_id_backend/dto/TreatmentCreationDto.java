@@ -55,18 +55,18 @@ public class TreatmentCreationDto {
      * @param user The User entity to link to this treatment.
      * @return A new Treatment entity, ready to be saved.
      */
-    public Treatment toEntity(User user) {
-        return Treatment.builder()
-                .user(user) // Link the treatment to the user
-                .diagnosis(this.diagnosis)
-                .prescribedMedicines(this.prescribedMedicines)
-                .recommendedTests(this.recommendedTests)
-                .notes(this.notes)
-                .dateOfTreatment(this.dateOfTreatment)
-                .isOngoing(this.isOngoing)
-                .followUpRequired(this.followUpRequired)
-                .followUpDate(this.followUpDate)
-                .severity(this.severity)
-                .build();
-    }
+//    public Treatment toEntity(User user) {
+//        return Treatment.builder()
+//                .user(user) // Link the treatment to the user
+//                .diagnosis(this.diagnosis)
+//                .prescribedMedicines(this.prescribedMedicines)
+//                .recommendedTests(this.recommendedTests)
+//                .notes(this.notes)
+//                .dateOfTreatment(this.dateOfTreatment)
+//                .isOngoing(this.isOngoing)
+//                .followUpRequired(this.followUpRequired)
+//                .followUpDate(this.followUpDate)
+//                .severity(this.severity)
+//                .build();
+//    }
 }

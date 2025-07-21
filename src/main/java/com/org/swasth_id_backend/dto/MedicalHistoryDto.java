@@ -41,27 +41,27 @@ public class MedicalHistoryDto {
     private String severity;
 
     // --- Mapper Methods ---
-    public static MedicalHistoryDto fromEntity(MedicalHistory history) {
-        return MedicalHistoryDto.builder()
-                .userId(history.getUser().getId())
-                .diagnosis(history.getDiagnosis())
-                .prescribedMedicines(history.getPrescribedMedicines())
-                .recommendedTests(history.getRecommendedTests())
-                .notes(history.getNotes())
-                .dateOfTreatment(history.getDateOfTreatment())
-                .severity(history.getSeverity())
-                .build();
-    }
+//    public static MedicalHistoryDto fromEntity(MedicalHistory history) {
+//        return MedicalHistoryDto.builder()
+//                .userId(history.getUser().getId())
+//                .diagnosis(history.getDiagnosis())
+//                .prescribedMedicines(history.getPrescribedMedicines())
+//                .recommendedTests(history.getRecommendedTests())
+//                .notes(history.getNotes())
+//                .dateOfTreatment(history.getDateOfTreatment())
+//                .severity(history.getSeverity())
+//                .build();
+//    }
 
-    public static MedicalHistory toEntity(MedicalHistoryDto dto) {
-        return MedicalHistory.builder()
-                .diagnosis(dto.getDiagnosis())
-                .prescribedMedicines(dto.getPrescribedMedicines())
-                .recommendedTests(dto.getRecommendedTests())
-                .notes(dto.getNotes())
-                .dateOfTreatment(dto.getDateOfTreatment())
-                .severity(dto.getSeverity())
-                .build();
-    }
+//    public static MedicalHistory toEntity(MedicalHistoryDto dto) {
+//        return MedicalHistory.builder()
+//                .diagnosis(dto.getDiagnosis())
+//                .prescribedMedicines(dto.getPrescribedMedicines())
+//                .recommendedTests(dto.getRecommendedTests())
+//                .notes(dto.getNotes())
+//                .dateOfTreatment(dto.getDateOfTreatment())
+//                .severity(dto.getSeverity())
+//                .build();
+//    }
 
 }
