@@ -22,27 +22,16 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 
     @Override
     public MedicalHistoryDto getHistoryById(Long historyId) {
-        MedicalHistory history = historyRepository.findById(historyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Medical history not found"));
-        return MedicalHistoryDto.fromEntity(history);
+       return null;
     }
 
     @Override
     public List<MedicalHistoryDto> getHistoryByUserId(Long userId) {
-        return historyRepository.findByUserId(userId).stream()
-                .map(MedicalHistoryDto::fromEntity)
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public MedicalHistoryDto createHistory(MedicalHistoryDto dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        MedicalHistory entity = MedicalHistoryDto.toEntity(dto);
-        entity.setUser(user);
-
-        MedicalHistory saved = historyRepository.save(entity);
-        return MedicalHistoryDto.fromEntity(saved);
+        return null;
     }
 }

@@ -31,97 +31,39 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public TreatmentDto addTreatmentToUser(Long userId, TreatmentCreationDto creationDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-
-        Treatment newTreatment = creationDto.toEntity(user);
-        Treatment savedTreatment = treatmentRepository.save(newTreatment);
-
-        return TreatmentDto.fromEntity(savedTreatment);
+        return null;
     }
 
     @Override
     public TreatmentDto updateTreatment(Long treatmentId, TreatmentUpdateDto updateDto) {
-        Treatment treatment = treatmentRepository.findById(treatmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Treatment not found with id: " + treatmentId));
-
-        if (updateDto.getDiagnosis() != null) treatment.setDiagnosis(updateDto.getDiagnosis());
-        if (updateDto.getPrescribedMedicines() != null) treatment.setPrescribedMedicines(updateDto.getPrescribedMedicines());
-        if (updateDto.getRecommendedTests() != null) treatment.setRecommendedTests(updateDto.getRecommendedTests());
-        if (updateDto.getNotes() != null) treatment.setNotes(updateDto.getNotes());
-        if (updateDto.getFollowUpRequired() != null) treatment.setFollowUpRequired(updateDto.getFollowUpRequired());
-        if (updateDto.getFollowUpDate() != null) treatment.setFollowUpDate(updateDto.getFollowUpDate());
-        if (updateDto.getSeverity() != null) treatment.setSeverity(updateDto.getSeverity());
-
-        boolean wasOngoing = treatment.isOngoing();
-
-        if (updateDto.getIsOngoing() != null) {
-
-            treatment.setOngoing(updateDto.getIsOngoing());
-
-            if (!updateDto.getIsOngoing() && wasOngoing) {
-                MedicalHistory history = MedicalHistory.builder()
-                        .user(treatment.getUser())
-                        .diagnosis(treatment.getDiagnosis())
-                        .prescribedMedicines(treatment.getPrescribedMedicines())
-                        .recommendedTests(treatment.getRecommendedTests())
-                        .notes(treatment.getNotes())
-                        .dateOfTreatment(treatment.getDateOfTreatment())
-                        .severity(treatment.getSeverity())
-                        .build();
-
-                medicalHistoryRepository.save(history);
-                treatmentRepository.delete(treatment);
-                return null;
-            }
-        }
-
-        Treatment updatedTreatment = treatmentRepository.save(treatment);
-        return TreatmentDto.fromEntity(updatedTreatment);
+        return null;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<TreatmentDto> findTreatmentById(Long treatmentId) {
-        return treatmentRepository.findById(treatmentId)
-                .map(TreatmentDto::fromEntity);
+        return null;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<TreatmentDto> findAllTreatmentsByUserId(Long userId) {
-        if (!userRepository.existsById(userId)) {
-            throw new ResourceNotFoundException("User not found with id: " + userId);
-        }
-
-        return treatmentRepository.findByUserId(userId).stream()
-                .map(TreatmentDto::fromEntity)
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<TreatmentDto> findOngoingTreatmentsByUserId(Long userId) {
-        if (!userRepository.existsById(userId)) {
-            throw new ResourceNotFoundException("User not found with id: " + userId);
-        }
-
-        return treatmentRepository.findByUserId(userId).stream()
-                .filter(Treatment::isOngoing)
-                .map(TreatmentDto::fromEntity)
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public void deleteTreatment(Long treatmentId) {
-        if (!treatmentRepository.existsById(treatmentId)) {
-            throw new ResourceNotFoundException("Treatment not found with id: " + treatmentId);
-        }
-        treatmentRepository.deleteById(treatmentId);
+        
     }
 
     @Override
     public List<TreatmentDto> findTreatmentsByUserIdAndDateRange(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
-        throw new UnsupportedOperationException("Date range query not yet implemented.");
+        return null;
     }
 }

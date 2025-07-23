@@ -3,9 +3,6 @@ package com.org.swasth_id_backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "users")
 @Data
@@ -41,17 +38,6 @@ public class User extends BaseEntity{
 
     private Boolean enabled = true;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @Builder.Default
-//    private List<Treatment> treatments = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @Builder.Default
-//    private List<MedicalHistory> history = new ArrayList<>();
 
 
 }

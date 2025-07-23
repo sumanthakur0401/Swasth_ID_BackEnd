@@ -2,7 +2,6 @@ package com.org.swasth_id_backend.service;
 
 import com.org.swasth_id_backend.entity.User;
 import com.org.swasth_id_backend.repo.UserRepository;
-import com.org.swasth_id_backend.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

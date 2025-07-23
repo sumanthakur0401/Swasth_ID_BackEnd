@@ -3,26 +3,31 @@ package com.org.swasth_id_backend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@Table(name = "password_rest_otp")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "roles")
-public class Role extends BaseEntity{
+public class PasswordResetOtp {
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Short id;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "otp", length = 6, nullable = false, unique = true)
+    private String otp;
+
+    @Column(name = "expiry_time", nullable = false)
+    private LocalDateTime expiryTime;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
@@ -31,4 +36,5 @@ public class Role extends BaseEntity{
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
+
 }

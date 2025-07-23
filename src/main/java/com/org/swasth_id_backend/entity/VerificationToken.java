@@ -3,7 +3,6 @@ package com.org.swasth_id_backend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,18 +10,25 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "roles")
-public class Role extends BaseEntity{
+@Entity
+@Table(name = "verification_token")
+public class VerificationToken {
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "verification_token_id")
+    private Short verificationTokenId;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "token", nullable = false, unique = true)
+    private String token;
+
+    @Column(name = "expiry_time", nullable = false)
+    private LocalDateTime expiryTime;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
@@ -31,4 +37,5 @@ public class Role extends BaseEntity{
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
+
 }
