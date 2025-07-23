@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api/auth/user/")
@@ -49,7 +51,7 @@ public class UserController {
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 	@GetMapping("/get-user-id")
-	public ResponseEntity<UserDto> getUserById(@RequestParam(name = "user_id") Short userId){
+	public ResponseEntity<UserDto> getUserById(@RequestParam(name = "user_id") UUID userId){
 		return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(userId));
 	}
 

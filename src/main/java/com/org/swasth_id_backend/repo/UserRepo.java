@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Repository
-public interface UserRepo extends JpaRepository<com.org.swasth_id_backend.entity.User, Short>{
+public interface UserRepo extends JpaRepository<User, UUID>{
 
-    Optional<com.org.swasth_id_backend.entity.User> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     @Query("select u from User u where u.email = :email")
     Optional<User> findByEmail(@Param("email") String email);

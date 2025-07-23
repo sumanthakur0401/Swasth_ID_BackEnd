@@ -1,9 +1,9 @@
 package com.org.swasth_id_backend.entity;
 
-import lombok.*;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "treatments")
@@ -24,7 +24,6 @@ public class Treatment extends BaseEntity{
     @Column(name = "diagnosis", nullable = false)
     private String diagnosis;
 
-
     @Column(name = "notes", length = 2000)
     private String notes;
 
@@ -35,7 +34,8 @@ public class Treatment extends BaseEntity{
     private boolean followUpRequired;
 
     @Column(name = "follow_up_date")
-    private LocalDateTime followUpDate;
+    @Temporal(TemporalType.DATE)
+    private Date followUpDate;
 
     @Column(name = "severity", nullable = false)
     private String severity;

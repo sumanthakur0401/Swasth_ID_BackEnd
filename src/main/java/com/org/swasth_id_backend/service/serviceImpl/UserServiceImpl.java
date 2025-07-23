@@ -15,10 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -68,7 +65,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto getUserById(Short userId) {
+	public UserDto getUserById(UUID userId) {
 		User user = userRepo.findById(userId)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found with this " + userId + " id"));
 		return UserMapper.userToUserDto(user);
@@ -105,7 +102,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean deleteUser(Short userId) throws UserNotFoundException {
+	public boolean deleteUser(UUID userId) throws UserNotFoundException {
 		Optional<User> user = userRepo.findById(userId);
 		if (user.isEmpty()) {
 			throw new UserNotFoundException("User not found");

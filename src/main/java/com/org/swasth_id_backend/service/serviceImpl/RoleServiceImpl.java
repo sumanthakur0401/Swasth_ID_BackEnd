@@ -11,10 +11,7 @@ import com.org.swasth_id_backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -57,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void assignRole(Short userId, Short roleId) throws ResourceNotFoundException {
+    public void assignRole(UUID userId, Short roleId) throws ResourceNotFoundException {
         Optional<User> user = userRepo.findById(userId);
         if(user.isEmpty()){
             throw new ResourceNotFoundException("User with this id "+ userId+" is not found");
@@ -73,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void unAssignRole(Short userId, Short roleId) throws ResourceNotFoundException {
+    public void unAssignRole(UUID userId, Short roleId) throws ResourceNotFoundException {
         Optional<User> user = userRepo.findById(userId);
         if(user.isEmpty()){
             throw new ResourceNotFoundException("User with this id "+ userId+" is not found");

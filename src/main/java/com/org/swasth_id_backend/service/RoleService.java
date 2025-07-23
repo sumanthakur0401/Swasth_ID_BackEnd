@@ -6,6 +6,7 @@ import com.org.swasth_id_backend.entity.Role;
 import com.org.swasth_id_backend.exception.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface RoleService {
 
@@ -14,7 +15,7 @@ public interface RoleService {
     public void deleteRoleById(Short id) throws ResourceNotFoundException;
     public void createRole(Role role);
 
-    public void assignRole(Short userId, Short roleId) throws ResourceNotFoundException;
-    public void unAssignRole(Short userId, Short roleId) throws ResourceNotFoundException;
+    public void assignRole(UUID userId, Short roleId) throws ResourceNotFoundException;
+    public void unAssignRole(UUID userId, Short roleId) throws ResourceNotFoundException;
 
 }

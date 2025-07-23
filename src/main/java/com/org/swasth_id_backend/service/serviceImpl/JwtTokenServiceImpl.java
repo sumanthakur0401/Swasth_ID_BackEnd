@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class JwtTokenServiceImpl implements JwtTokenService {
@@ -56,7 +57,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
 
-    private void invalidateOldToken(Short userId){
+    private void invalidateOldToken(UUID userId){
         List<JwtToken> userTokens = jwtTokenRepo.findByUserId(userId);
         for (JwtToken token : userTokens) {
             if (!token.getBlacklisted()) {
@@ -67,7 +68,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
 
-    private void saveNewToken(Short userId, String newToken, Integer expirationTime){
+    private void saveNewToken(UUID userId, String newToken, Integer expirationTime){
         JwtToken jwtToken = new JwtToken();
         jwtToken.setToken(newToken);
         jwtToken.setUserId(userId);

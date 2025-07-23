@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class JwtToken {
     private String token;
 
     @Column(nullable = false, name = "user_id")
-    private Short userId;
+    private UUID userId;
 
     @CreationTimestamp
     @Column(nullable = false, name = "created_at")

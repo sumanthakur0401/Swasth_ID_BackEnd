@@ -20,14 +20,11 @@ public class Patient extends BaseEntity {
     @ToString.Exclude
     private User user;
 
+    @Column(unique = true)
+    private String patientCode;
+
     @Column(name = "gender", length = 10)
     private String gender;
-
-    @Column(name = "contact_number", length = 15)
-    private String contactNumber;
-
-    @Column(name = "address", length = 255)
-    private String address;
 
     @Column(name = "emergency_contact_name", length = 100)
     private String emergencyContactName;
@@ -41,13 +38,19 @@ public class Patient extends BaseEntity {
     @Column(name = "existing_conditions", length = 500)
     private String existingConditions;
 
-    @Column(name = "insurance_number", length = 50, unique = true, nullable = true)
-    private String insuranceNumber;
+    @Column(name = "insurance_provider")
+    private String insuranceProvider;
+
+    @Column(name = "insurance_policy_number", length = 50, unique = true, nullable = true)
+    private String insurancePolicyNumber;
 
     @Column(name = "blood_group", length = 5)
     private String bloodGroup;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<DoctorPatient> doctorPatients = new ArrayList<>();
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Consultation> consultations = new ArrayList<>();
 
 }

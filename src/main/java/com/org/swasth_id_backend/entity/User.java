@@ -46,6 +46,9 @@ public class User extends BaseEntity{
     @Column(name = "phone_number", nullable = true, unique = true, length = 10)
     private String phoneNumber;
 
+    @Column(name = "address", length = 255)
+    private String address;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})

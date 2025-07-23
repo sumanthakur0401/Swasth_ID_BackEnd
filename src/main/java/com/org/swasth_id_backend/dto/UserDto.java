@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 
 @Data
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserDto {
 
-    private Short userId;
+    private UUID userId;
     private String username;
     private String firstName;
     private String lastName;

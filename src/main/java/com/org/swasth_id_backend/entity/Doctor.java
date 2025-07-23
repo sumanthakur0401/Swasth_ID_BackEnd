@@ -19,25 +19,28 @@ public class Doctor extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "first_name", nullable = false, length = 100)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 100)
-    private String lastName;
-
     @Column(nullable = false, length = 100)
     private String specialization;
 
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
-    @Column(name = "degree_file_url", nullable = false, length = 500)
-    private String degreeFileUrl;
+    @Column(name = "license_number", unique = true, length = 50)
+    private String licenseNumber;
 
-    @Column(name = "registration_number", unique = true, length = 50)
-    private String registrationNumber;
+    @Column(name = "year_of_experience")
+    private Integer yearsOfExperience = 0;
+
+    @Column(name = "hospitalName")
+    private String hospitalName;
+
+    @Column(name = "available_timings")
+    private String availableTimings;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<DoctorPatient> doctorPatients = new ArrayList<>();
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Consultation> consultations = new ArrayList<>();
 
 }
