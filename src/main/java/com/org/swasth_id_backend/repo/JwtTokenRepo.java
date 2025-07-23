@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.repo;
 
-import com.gyanpath.security.entity.JwtToken;
+import com.org.swasth_id_backend.entity.JwtToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

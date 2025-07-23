@@ -1,11 +1,11 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.UserDto;
-import com.gyanpath.security.entity.JwtToken;
-import com.gyanpath.security.repo.JwtTokenRepo;
-import com.gyanpath.security.repo.UserRepo;
-import com.gyanpath.security.service.JwtService;
-import com.gyanpath.security.service.JwtTokenService;
+import com.org.swasth_id_backend.dto.UserDto;
+import com.org.swasth_id_backend.entity.JwtToken;
+import com.org.swasth_id_backend.repo.JwtTokenRepo;
+import com.org.swasth_id_backend.repo.UserRepo;
+import com.org.swasth_id_backend.service.JwtService;
+import com.org.swasth_id_backend.service.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

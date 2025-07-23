@@ -1,10 +1,10 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.VerificationTokenDto;
-import com.gyanpath.security.entity.VerificationToken;
-import com.gyanpath.security.mapper.VerificationTokenMapper;
-import com.gyanpath.security.repo.VerificationTokenRepo;
-import com.gyanpath.security.service.VerificationTokenService;
+import com.org.swasth_id_backend.dto.VerificationTokenDto;
+import com.org.swasth_id_backend.entity.VerificationToken;
+import com.org.swasth_id_backend.mapper.VerificationTokenMapper;
+import com.org.swasth_id_backend.repo.VerificationTokenRepo;
+import com.org.swasth_id_backend.service.VerificationTokenService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

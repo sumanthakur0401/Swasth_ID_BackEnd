@@ -1,11 +1,14 @@
 package com.org.swasth_id_backend.controller;
 
-import com.gyanpath.security.dto.*;
-import com.gyanpath.security.entity.*;
-import com.gyanpath.security.exception.*;
-import com.gyanpath.security.mapper.UserMapper;
-import com.gyanpath.security.service.*;
-import com.gyanpath.security.service.impl.UserDetailsServiceImpl;
+import com.org.swasth_id_backend.dto.*;
+import com.org.swasth_id_backend.entity.JwtToken;
+import com.org.swasth_id_backend.entity.PasswordResetOtp;
+import com.org.swasth_id_backend.entity.User;
+import com.org.swasth_id_backend.entity.VerificationToken;
+import com.org.swasth_id_backend.exception.*;
+import com.org.swasth_id_backend.mapper.UserMapper;
+import com.org.swasth_id_backend.service.*;
+import com.org.swasth_id_backend.service.serviceImpl.UserDetailsServiceImpl;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -73,7 +78,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDto  refreshTokenRequest) throws UserNotFoundException {
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDto refreshTokenRequest) throws UserNotFoundException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(refreshTokenRequest.getEmail());
         UserDto userDto = userService.getUserByEmail(refreshTokenRequest.getEmail());
         JwtToken jwtToken;

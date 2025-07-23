@@ -1,12 +1,12 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.ChangePasswordDto;
-import com.gyanpath.security.dto.UserDto;
-import com.gyanpath.security.entity.User;
-import com.gyanpath.security.exception.*;
-import com.gyanpath.security.mapper.UserMapper;
-import com.gyanpath.security.repo.UserRepo;
-import com.gyanpath.security.service.RoleService;
+import com.org.swasth_id_backend.dto.ChangePasswordDto;
+import com.org.swasth_id_backend.dto.UserDto;
+import com.org.swasth_id_backend.entity.User;
+import com.org.swasth_id_backend.exception.*;
+import com.org.swasth_id_backend.mapper.UserMapper;
+import com.org.swasth_id_backend.repo.UserRepo;
+import com.org.swasth_id_backend.service.RoleService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setIsVerified(false);
 		user.setIsOtpVerified(false);
-		user.getRoles().add(roleService.getRoleById((short) 2));
+//		user.getRoles().add(roleService.getRoleById((short) 2));
 		userRepo.save(user);
 	}
 
@@ -62,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		user.setPassword(encoder.encode(UUID.randomUUID().toString()));
 		user.setIsVerified(true);
 		user.setIsOtpVerified(false);
-		user.getRoles().add(roleService.getRoleById((short) 2));
+//		user.getRoles().add(roleService.getRoleById((short) 2));
 		userRepo.save(user);
 	}
 

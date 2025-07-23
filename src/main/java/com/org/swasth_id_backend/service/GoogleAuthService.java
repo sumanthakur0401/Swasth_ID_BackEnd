@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.service;
 
-import com.gyanpath.security.dto.JwtResponse;
+import com.org.swasth_id_backend.dto.JwtResponse;
 
 public interface GoogleAuthService {
 

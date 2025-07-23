@@ -1,13 +1,13 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.RoleDto;
-import com.gyanpath.security.entity.Role;
-import com.gyanpath.security.entity.User;
-import com.gyanpath.security.exception.ResourceNotFoundException;
-import com.gyanpath.security.mapper.RoleMapper;
-import com.gyanpath.security.repo.RoleRepo;
-import com.gyanpath.security.repo.UserRepo;
-import com.gyanpath.security.service.RoleService;
+import com.org.swasth_id_backend.dto.RoleDto;
+import com.org.swasth_id_backend.entity.Role;
+import com.org.swasth_id_backend.entity.User;
+import com.org.swasth_id_backend.exception.ResourceNotFoundException;
+import com.org.swasth_id_backend.mapper.RoleMapper;
+import com.org.swasth_id_backend.repo.RoleRepo;
+import com.org.swasth_id_backend.repo.UserRepo;
+import com.org.swasth_id_backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

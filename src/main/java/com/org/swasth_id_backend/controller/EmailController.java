@@ -1,7 +1,7 @@
 package com.org.swasth_id_backend.controller;
 
-import com.gyanpath.security.dto.EmailDetails;
-import com.gyanpath.security.service.EmailService;
+import com.org.swasth_id_backend.dto.EmailDetails;
+import com.org.swasth_id_backend.service.EmailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
