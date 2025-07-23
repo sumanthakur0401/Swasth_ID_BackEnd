@@ -1,18 +1,19 @@
 package com.org.swasth_id_backend.controller;
 
-import com.gyanpath.security.dto.*;
-import com.gyanpath.security.entity.User;
-import com.gyanpath.security.exception.QuizNotFoundException;
-import com.gyanpath.security.exception.ResourceNotFoundException;
-import com.gyanpath.security.exception.UserNotFoundException;
-import com.gyanpath.security.mapper.UserMapper;
-import com.gyanpath.security.service.PasswordResetOtpService;
-import com.gyanpath.security.service.RoleService;
-import com.gyanpath.security.service.UserService;
-import com.gyanpath.security.service.VerificationTokenService;
-import com.gyanpath.security.service.client.QuestionServiceClient;
-import com.gyanpath.security.service.client.QuizServiceClient;
-import com.gyanpath.security.service.impl.UserDetailsServiceImpl;
+
+import com.org.swasth_id_backend.dto.PasswordResetOtpDto;
+import com.org.swasth_id_backend.dto.RoleDto;
+import com.org.swasth_id_backend.dto.UserDto;
+import com.org.swasth_id_backend.dto.VerificationTokenDto;
+import com.org.swasth_id_backend.entity.User;
+import com.org.swasth_id_backend.exception.ResourceNotFoundException;
+import com.org.swasth_id_backend.exception.UserNotFoundException;
+import com.org.swasth_id_backend.mapper.UserMapper;
+import com.org.swasth_id_backend.service.PasswordResetOtpService;
+import com.org.swasth_id_backend.service.RoleService;
+import com.org.swasth_id_backend.service.UserService;
+import com.org.swasth_id_backend.service.VerificationTokenService;
+import com.org.swasth_id_backend.service.serviceImpl.UserDetailsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -38,8 +39,6 @@ public class AdminController {
     private final RoleService roleService;
     private final VerificationTokenService verificationTokenService;
     private final PasswordResetOtpService passwordResetOtpService;
-    private final QuizServiceClient quizServiceClient;
-    private final QuestionServiceClient questionServiceClient;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
@@ -47,15 +46,11 @@ public class AdminController {
                            RoleService roleService,
                            VerificationTokenService verificationTokenService,
                            PasswordResetOtpService passwordResetOtpService,
-                           QuizServiceClient quizServiceClient,
-                           QuestionServiceClient questionServiceClient,
                            UserDetailsServiceImpl userDetailsService) {
         this.userService = userService;
         this.roleService = roleService;
         this.verificationTokenService = verificationTokenService;
         this.passwordResetOtpService = passwordResetOtpService;
-        this.quizServiceClient = quizServiceClient;
-        this.questionServiceClient = questionServiceClient;
         this.userDetailsService = userDetailsService;
     }
 
@@ -86,23 +81,6 @@ public class AdminController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/get-all-quiz-list")
-    public ResponseEntity<List<QuizDto>> getAllQuizList(){
-        return quizServiceClient.getAllQuiz();
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/delete-quiz")
-    public ResponseEntity<Map<String, String>> deleteQuiz(@RequestParam(name = "quiz_id") Short quizId) throws QuizNotFoundException {
-        return quizServiceClient.deleteQuiz(quizId);
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/get-all-question-list")
-    public ResponseEntity<List<QuestionDto>> getAllQuestionList(){
-        return questionServiceClient.getAllQuestion();
-    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/update-user")
@@ -112,20 +90,6 @@ public class AdminController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/delete-user")
-    @Transactional
-    public ResponseEntity<?> deleteUser(@RequestParam Short userId) {
-        try{
-            quizServiceClient.deleteQuizAttempt(userId);
-            userService.deleteUser(userId);
-            return ResponseEntity.noContent().build();
-        }
-        catch (Exception e) {
-            log.error(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create-user")
@@ -139,18 +103,4 @@ public class AdminController {
         return ResponseEntity.created(URI.create("/created")).body(map);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/create-quiz")
-    @Transactional
-    public ResponseEntity<Map<String, String>> createQuiz(@RequestBody QuizDto quizDto) throws QuizNotFoundException {
-        try{
-            quizServiceClient.createQuiz(quizDto);
-            Map<String, String> response = new HashMap<>();
-            response.put("success", "Quiz Created Successfully");
-            return ResponseEntity.created(URI.create("/create-quiz")).body(response);
-        }
-        catch (Exception e){
-            throw new QuizNotFoundException(e.getMessage());
-        }
-    }
 }

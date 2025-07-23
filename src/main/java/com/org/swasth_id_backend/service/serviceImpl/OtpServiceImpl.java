@@ -1,7 +1,7 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.service.EmailService;
-import com.gyanpath.security.service.OtpService;
+import com.org.swasth_id_backend.service.EmailService;
+import com.org.swasth_id_backend.service.OtpService;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;

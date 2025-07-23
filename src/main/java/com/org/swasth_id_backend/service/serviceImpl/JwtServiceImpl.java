@@ -1,7 +1,7 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.UserDto;
-import com.gyanpath.security.service.JwtService;
+import com.org.swasth_id_backend.dto.UserDto;
+import com.org.swasth_id_backend.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -41,17 +41,6 @@ public class JwtServiceImpl implements JwtService {
 		validateBase64EncodedKey(secretKey);
 	}
 
-
-	// private String generateSecretKey() {
-	// 	try {
-	// 		KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-	// 		SecretKey secretKey = keyGen.generateKey();
-	// 		return Base64.getEncoder().encodeToString(secretKey.getEncoded());
-	// 	} catch (NoSuchAlgorithmException e) {
-	// 		System.out.println("err" + e.getMessage());
-	// 		throw new RuntimeException("Error while generating secret key", e);
-	// 	}
-	// }
 
 	private void validateBase64EncodedKey(String key) {
 		try {
@@ -121,7 +110,11 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	private Claims extractAllClaims(String token) {
-		return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody();
+		return Jwts.parserBuilder()
+				.setSigningKey(getKey())
+				.build()
+				.parseClaimsJws(token)
+				.getBody();
 	}
 	
 	@Override

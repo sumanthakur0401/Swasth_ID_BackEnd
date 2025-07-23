@@ -1,7 +1,8 @@
 package com.org.swasth_id_backend.service;
 
-import com.gyanpath.security.dto.VerificationTokenDto;
-import com.gyanpath.security.entity.VerificationToken;
+
+import com.org.swasth_id_backend.dto.VerificationTokenDto;
+import com.org.swasth_id_backend.entity.VerificationToken;
 
 import java.util.List;
 

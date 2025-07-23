@@ -1,7 +1,7 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.EmailDetails;
-import com.gyanpath.security.service.EmailService;
+import com.org.swasth_id_backend.dto.EmailDetails;
+import com.org.swasth_id_backend.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;

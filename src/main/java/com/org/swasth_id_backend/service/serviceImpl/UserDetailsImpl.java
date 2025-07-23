@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.entity.User;
+import com.org.swasth_id_backend.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

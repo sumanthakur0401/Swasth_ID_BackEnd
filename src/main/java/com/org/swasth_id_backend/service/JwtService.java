@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.service;
 
-import com.gyanpath.security.dto.UserDto;
+import com.org.swasth_id_backend.dto.UserDto;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
 

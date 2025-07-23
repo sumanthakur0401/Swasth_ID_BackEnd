@@ -1,8 +1,9 @@
 package com.org.swasth_id_backend.service;
 
-import com.gyanpath.security.dto.PasswordResetOtpDto;
-import com.gyanpath.security.entity.PasswordResetOtp;
-import com.gyanpath.security.exception.InvalidOtpException;
+
+import com.org.swasth_id_backend.dto.PasswordResetOtpDto;
+import com.org.swasth_id_backend.entity.PasswordResetOtp;
+import com.org.swasth_id_backend.exception.InvalidOtpException;
 
 import java.util.List;
 

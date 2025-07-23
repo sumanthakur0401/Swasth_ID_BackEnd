@@ -1,8 +1,9 @@
 package com.org.swasth_id_backend.service;
 
-import com.gyanpath.security.dto.RoleDto;
-import com.gyanpath.security.entity.Role;
-import com.gyanpath.security.exception.ResourceNotFoundException;
+
+import com.org.swasth_id_backend.dto.RoleDto;
+import com.org.swasth_id_backend.entity.Role;
+import com.org.swasth_id_backend.exception.ResourceNotFoundException;
 
 import java.util.List;
 

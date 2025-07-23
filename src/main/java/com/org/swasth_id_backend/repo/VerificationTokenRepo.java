@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.repo;
 
-import com.gyanpath.security.entity.VerificationToken;
+import com.org.swasth_id_backend.entity.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

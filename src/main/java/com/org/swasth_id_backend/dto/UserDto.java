@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.dto;
 
-import com.gyanpath.security.entity.Role;
+import com.org.swasth_id_backend.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

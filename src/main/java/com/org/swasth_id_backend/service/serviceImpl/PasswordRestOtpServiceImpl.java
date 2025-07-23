@@ -1,11 +1,11 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
-import com.gyanpath.security.dto.PasswordResetOtpDto;
-import com.gyanpath.security.entity.PasswordResetOtp;
-import com.gyanpath.security.exception.InvalidOtpException;
-import com.gyanpath.security.mapper.PasswordResetOtpMapper;
-import com.gyanpath.security.repo.PasswordResetOtpRepo;
-import com.gyanpath.security.service.PasswordResetOtpService;
+import com.org.swasth_id_backend.dto.PasswordResetOtpDto;
+import com.org.swasth_id_backend.entity.PasswordResetOtp;
+import com.org.swasth_id_backend.exception.InvalidOtpException;
+import com.org.swasth_id_backend.mapper.PasswordResetOtpMapper;
+import com.org.swasth_id_backend.repo.PasswordResetOtpRepo;
+import com.org.swasth_id_backend.service.PasswordResetOtpService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

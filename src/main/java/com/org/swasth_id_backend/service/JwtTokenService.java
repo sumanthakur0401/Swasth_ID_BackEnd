@@ -1,7 +1,8 @@
 package com.org.swasth_id_backend.service;
 
-import com.gyanpath.security.dto.UserDto;
-import com.gyanpath.security.entity.JwtToken;
+
+import com.org.swasth_id_backend.dto.UserDto;
+import com.org.swasth_id_backend.entity.JwtToken;
 
 public interface JwtTokenService {
 

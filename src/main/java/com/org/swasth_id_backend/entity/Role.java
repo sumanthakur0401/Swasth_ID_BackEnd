@@ -2,8 +2,8 @@ package com.org.swasth_id_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,13 +11,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "roles")
-public class Role extends BaseEntity{
+@Builder
+public class Role{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
+
+    private Short roleId;
     @Column(name = "role", nullable = false)
     private String role;
 
