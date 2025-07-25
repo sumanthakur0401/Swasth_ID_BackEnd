@@ -53,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setIsVerified(false);
 		user.setIsOtpVerified(false);
-		user.getRoles().add(roleService.getRoleById((short) 2));
+		user.getRoles().add(roleService.getRoleByName("ROLE_USER"));
 		userRepo.save(user);
 	}
 
@@ -62,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		user.setPassword(encoder.encode(UUID.randomUUID().toString()));
 		user.setIsVerified(true);
 		user.setIsOtpVerified(false);
-		user.getRoles().add(roleService.getRoleById((short) 2));
+		user.getRoles().add(roleService.getRoleByName("ROLE_USER"));
 		userRepo.save(user);
 	}
 

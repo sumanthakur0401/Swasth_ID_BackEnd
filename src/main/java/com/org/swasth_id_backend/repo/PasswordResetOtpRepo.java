@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface PasswordResetOtpRepo extends JpaRepository<PasswordResetOtp, Short> {
+public interface PasswordResetOtpRepo extends JpaRepository<PasswordResetOtp, UUID> {
 
     @Query("SELECT p FROM PasswordResetOtp p WHERE p.email = :email AND p.otp = :otp")
     Optional<PasswordResetOtp> findByEmailAndOtp(@Param("email") String email, @Param("otp") String otp);

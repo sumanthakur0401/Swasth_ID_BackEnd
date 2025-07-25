@@ -81,14 +81,12 @@ public class AdminController {
     }
 
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/update-user")
     public ResponseEntity<UserDto> updateUserData(@RequestBody UserDto userDto) throws UserNotFoundException {
         System.out.println(userDto);
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUserData(userDto));
     }
-
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

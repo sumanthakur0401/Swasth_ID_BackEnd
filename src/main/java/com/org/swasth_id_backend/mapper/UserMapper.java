@@ -24,19 +24,19 @@ public class UserMapper {
 
     public static UserDto userToUserDto(User user){
         UserDto userDto = new UserDto();
-//        userDto.setUserId(user.getUserId());
+        userDto.setUserId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
-//        userDto.setLastUpdate(user.getLastUpdate());
+        userDto.setLastUpdate(user.getLastUpdate());
         userDto.setEmail(user.getEmail());
         userDto.setIsActive(user.getIsActive());
         userDto.setIsVerified(user.getIsVerified());
         userDto.setIsOtpVerified(user.getIsOtpVerified());
         userDto.setPhoneNumber(user.getPhoneNumber());
         userDto.setOtpLastUpdate(user.getOtpLastUpdate());
-//        userDto.setCreatedAt(user.getCreatedAt());
-//        userDto.setLastUpdate(user.getLastUpdate());
+        userDto.setCreatedAt(user.getCreatedAt());
+        userDto.setLastUpdate(user.getLastUpdate());
         userDto.setRoles(user.getRoles());
         return userDto;
     }

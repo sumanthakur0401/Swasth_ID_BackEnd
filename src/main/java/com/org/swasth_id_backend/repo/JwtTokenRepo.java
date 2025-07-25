@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface JwtTokenRepo extends JpaRepository<JwtToken, Short> {
+public interface JwtTokenRepo extends JpaRepository<JwtToken, UUID> {
 
     List<JwtToken> findByUserId(UUID userId);
 

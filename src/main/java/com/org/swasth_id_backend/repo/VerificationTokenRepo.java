@@ -7,9 +7,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface VerificationTokenRepo extends JpaRepository<VerificationToken, Short> {
+public interface VerificationTokenRepo extends JpaRepository<VerificationToken, UUID> {
 
     Optional<VerificationToken> findByToken(String token);
 

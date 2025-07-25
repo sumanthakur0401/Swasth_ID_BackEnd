@@ -1,10 +1,12 @@
 package com.org.swasth_id_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.org.swasth_id_backend.utils.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "follow_ups")
@@ -15,15 +17,23 @@ import java.time.LocalDate;
 @Builder
 public class FollowUp extends BaseEntity {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
 
-    private LocalDate scheduledDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "scheduled_date", nullable = false)
+    private Date scheduledDate;
+
+    @JsonFormat(pattern = "HH:mm")
+    @Column(name = "scheduled_time", nullable = false)
+    private LocalTime scheduledTime;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(name = "status", nullable = false)
+    private Status status = Status.UPCOMING;
 
+    @Column(name = "notes", nullable = true)
     private String notes;
 
 

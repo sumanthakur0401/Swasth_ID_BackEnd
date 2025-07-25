@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VerificationTokenDto {
 
-    private Short verificationTokenId;
+    private UUID verificationTokenId;
     private String email;
     private String token;
     private LocalDateTime expiryTime;

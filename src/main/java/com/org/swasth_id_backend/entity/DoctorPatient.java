@@ -1,9 +1,7 @@
 package com.org.swasth_id_backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,11 +15,14 @@ import lombok.NoArgsConstructor;
 @Entity
 public class DoctorPatient extends BaseEntity{
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     private Doctor doctor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
+    
 }

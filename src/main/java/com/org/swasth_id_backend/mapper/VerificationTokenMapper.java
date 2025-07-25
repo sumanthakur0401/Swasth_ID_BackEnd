@@ -13,7 +13,7 @@ public class VerificationTokenMapper {
         }
 
         VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setVerificationTokenId(verificationTokenDto.getVerificationTokenId());
+        verificationToken.setId(verificationTokenDto.getVerificationTokenId());
         verificationToken.setEmail(verificationTokenDto.getEmail());
         verificationToken.setToken(verificationTokenDto.getToken());
         verificationToken.setExpiryTime(verificationTokenDto.getExpiryTime());
@@ -30,7 +30,7 @@ public class VerificationTokenMapper {
         }
 
         VerificationTokenDto verificationTokenDto = new VerificationTokenDto();
-        verificationTokenDto.setVerificationTokenId(verificationToken.getVerificationTokenId());
+        verificationTokenDto.setVerificationTokenId(verificationToken.getId());
         verificationTokenDto.setEmail(verificationToken.getEmail());
         verificationTokenDto.setToken(verificationToken.getToken());
         verificationTokenDto.setExpiryTime(verificationToken.getExpiryTime());

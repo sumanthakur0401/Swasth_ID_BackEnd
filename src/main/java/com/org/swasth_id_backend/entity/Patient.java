@@ -1,5 +1,6 @@
 package com.org.swasth_id_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,9 +49,11 @@ public class Patient extends BaseEntity {
     private String bloodGroup;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<DoctorPatient> doctorPatients = new ArrayList<>();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Consultation> consultations = new ArrayList<>();
 
 }

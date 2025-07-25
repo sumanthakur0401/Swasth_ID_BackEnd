@@ -34,7 +34,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
-    public JwtToken getJwtTokenByUserIdAndBlacklisted(Short userId, Boolean blackListed) {
+    public JwtToken getJwtTokenByUserIdAndBlacklisted(UUID userId, Boolean blackListed) {
 //        return jwtTokenRepo.findByUserIdAndBlacklisted(userId, blackListed)
         return  null;
     }
@@ -60,10 +60,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private void invalidateOldToken(UUID userId){
         List<JwtToken> userTokens = jwtTokenRepo.findByUserId(userId);
         for (JwtToken token : userTokens) {
-            if (!token.getBlacklisted()) {
-                token.setBlacklisted(true);
-                jwtTokenRepo.save(token);
-            }
+            jwtTokenRepo.delete(token);
+//            if (!token.getBlacklisted()) {
+//                token.setBlacklisted(true);
+//                jwtTokenRepo.save(token);
+//            }
         }
     }
 

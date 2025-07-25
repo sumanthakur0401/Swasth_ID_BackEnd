@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role getRoleById(Short id) throws ResourceNotFoundException {
+    public Role getRoleById(UUID id) throws ResourceNotFoundException {
         Optional<Role> role = roleRepo.findById(id);
         if(role.isEmpty()){
             throw new ResourceNotFoundException("Role with this id not found "+ id);
@@ -40,7 +40,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRoleById(Short id) throws ResourceNotFoundException {
+    public Role getRoleByName(String roleName) throws ResourceNotFoundException {
+        Optional<Role> role = roleRepo.findByRole(roleName);
+        if(role.isEmpty()){
+            throw new ResourceNotFoundException("Role with this id not found "+ roleName);
+        }
+        return role.get();
+    }
+
+    @Override
+    public void deleteRoleById(UUID id) throws ResourceNotFoundException {
         Optional<Role> role = roleRepo.findById(id);
         if(role.isEmpty()){
             throw new ResourceNotFoundException("Role with this id not found "+ id);
@@ -54,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void assignRole(UUID userId, Short roleId) throws ResourceNotFoundException {
+    public void assignRole(UUID userId, UUID roleId) throws ResourceNotFoundException {
         Optional<User> user = userRepo.findById(userId);
         if(user.isEmpty()){
             throw new ResourceNotFoundException("User with this id "+ userId+" is not found");
@@ -70,7 +79,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void unAssignRole(UUID userId, Short roleId) throws ResourceNotFoundException {
+    public void unAssignRole(UUID userId, UUID roleId) throws ResourceNotFoundException {
         Optional<User> user = userRepo.findById(userId);
         if(user.isEmpty()){
             throw new ResourceNotFoundException("User with this id "+ userId+" is not found");

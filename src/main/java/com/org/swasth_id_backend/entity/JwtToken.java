@@ -1,11 +1,11 @@
 package com.org.swasth_id_backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,13 +13,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "jwt_token")
-public class JwtToken {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "jwt_token_id")
-    private Short jwtTokenId;
+public class JwtToken extends BaseEntity{
 
     @Column(name = "token", nullable = false, length = 500)
     private String token;
@@ -27,19 +23,11 @@ public class JwtToken {
     @Column(nullable = false, name = "user_id")
     private UUID userId;
 
-    @CreationTimestamp
-    @Column(nullable = false, name = "created_at")
-    private LocalDateTime createdAt;
-
     @Column(nullable = false, name = "expiration_time")
     private LocalDateTime expirationTime;
 
     @Column(nullable = false, name = "black_listed")
     private Boolean blacklisted = false;
-
-    @UpdateTimestamp
-    @Column(name = "last_update", nullable = false)
-    private LocalDateTime lastUpdate;
 
 
 }
