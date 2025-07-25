@@ -130,5 +130,5 @@ docker run -p 8080:8080 --env-file .env swasth-backend
 
 ## 📬 Contact
 
-Developed by **Tapan Kumar**, **Suman Thakur**, and **Deepanshu**  
+Developed by **Tapan Kumar**, **Suman Thakur**, and **Deepanshu**, **Manan Tandon**
 🧑‍💻 Java Full Stack Developer | Spring Boot | React | Docker
