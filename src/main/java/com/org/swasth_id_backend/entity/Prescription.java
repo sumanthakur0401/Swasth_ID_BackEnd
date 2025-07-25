@@ -24,10 +24,10 @@ public class Prescription extends BaseEntity {
     @Column(name = "dosage", nullable = false, length = 255)
     private String dosage;
 
-    @Column(name = "dosage", nullable = false, length = 255)
+    @Column(name = "duration", nullable = false, length = 255)
     private String duration;
 
-    @Column(name = "dosage", nullable = false, length = 255)
+    @Column(name = "instructions", nullable = false, length = 255)
     private String instructions;
 
 }
