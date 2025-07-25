@@ -1,36 +1,39 @@
+
 # 🏥 Swasth_ID_BackEnd
 
-A Spring Boot-based backend system for managing electronic health records. The platform allows doctors to scan patient cards (QR code-based) to view medical history, prescribe treatments, and manage follow-ups.
+Swasth-ID is a secure and scalable Spring Boot-based backend system designed to manage Electronic Health Records (EHR). It enables doctors to scan a patient's unique QR code card to instantly access their complete medical history, prescribe medicines, and manage follow-up visits effectively.
 
 ---
 
 ## 📌 Features
 
-- ✅ Role-based authentication and authorization
+- ✅ Role-based authentication and authorization (JWT + OAuth2)
 - ✅ Doctor and Patient registration with profile management
 - ✅ Patient QR card generation and scanning
 - ✅ Medical history tracking with treatment records
 - ✅ Follow-up scheduling and tracking
-- ✅ REST API-ready
+- ✅ RESTful APIs ready for integration
 - ✅ Entity auditing (createdAt, updatedAt)
-- ✅ Dockerized
+- ✅ Dockerized for easy deployment
 
 ---
 
 ## ⚙️ Technologies Used
 
-- Java 17+
-- Spring Boot 3
-- Spring Security + JWT + OAuth2
-- Spring Data JPA
-- MySQL / PostgreSQL
-- Lombok
-- Jakarta Persistence (JPA)
-- Docker
+- **Java 17+**
+- **Spring Boot 3**
+- **Spring Security (JWT & OAuth2)**
+- **Spring Data JPA**
+- **MySQL / PostgreSQL**
+- **Lombok**
+- **Jakarta Persistence (JPA)**
+- **Docker**
+- **MapStruct** (for DTO mapping)
+- **Java Mail (SMTP Integration)**
 
 ---
 
-## 🚀 Setup Instructions
+## 🚀 Getting Started
 
 ### 🔧 Step 1: Clone the Repository
 
@@ -39,10 +42,13 @@ git clone https://github.com/sumanthakur0401/Swasth_ID_BackEnd.git
 cd Swasth_ID_BackEnd
 ```
 
-### ⚙️ Create .env file or set environment variables
-  
-Configure the following environment variables used in application.properties:
+---
 
+### ⚙️ Step 2: Configure Environment Variables
+
+Create a `.env` file in the root directory and configure the following variables:
+
+```env
 SERVER_PORT=8080
 
 DATABASE_URL=jdbc:mysql://localhost:3306/swasthdb
@@ -65,45 +71,64 @@ GITHUB_CLIENT_SECRET=your_github_client_secret
 GITHUB_REDIRECT_URI=http://localhost:3000/oauth2/redirect
 
 FRONTEND_URL=http://localhost:3000
+```
 
-ou can use .env with Spring Boot Docker support or tools like Docker Compose.
+> ✅ You can also use tools like Docker Compose to manage these variables.
 
-### 🐍 Step 2: Create .env or application.yml (Optional for customization)
+---
 
-### 📦 Step 3: Install Dependencies
+### 📦 Step 3: Build the Project
 
+```bash
 ./mvnw clean install
+```
+
+---
 
 ### 🧪 Step 4: Run the Application
 
+Option 1: Use Spring Boot:
+
+```bash
 ./mvnw spring-boot:run
+```
 
-Or build JAR and run:
+Option 2: Run as a JAR:
 
+```bash
 ./mvnw clean package
 java -jar target/swasth-id-backend.jar
+```
 
-📁 Folder Structure
+---
 
+## 📁 Project Structure
+
+```
 src/main/java/com/org/swasth_id_backend/
-│
-├── config/            → Security & app configs
-├── controller/        → REST Controllers
-├── dto/               → DTOs for transferring data
-├── entity/            → JPA Entities (User, Doctor, Patient, Treatment)
-├── mapper/            → MapStruct Mappers
-├── repository/        → Spring Data Repositories
-├── service/           → Business Logic Layer
-├── util/              → QR generation & helpers
+├── config/        # Security & app configuration
+├── controller/    # REST controllers
+├── dto/           # Data Transfer Objects
+├── entity/        # JPA Entities (User, Doctor, Patient, Treatment)
+├── mapper/        # MapStruct mappers
+├── repository/    # JPA Repositories
+├── service/       # Business logic
+├── util/          # Utility functions (e.g. QR generation)
 └── SwasthIdBackendApplication.java
+```
 
+---
 
-🐳 Docker Setup
+## 🐳 Docker Setup
 
+```bash
 docker build -t swasth-backend .
 docker run -p 8080:8080 --env-file .env swasth-backend
+```
 
-📬 Contact
-Developed by Tapan Kumar, Suman Thakur, Deepanshu 
+---
+
+## 📬 Contact
+
+Developed by **Tapan Kumar**, **Suman Thakur**, and **Deepanshu**  
 🧑‍💻 Java Full Stack Developer | Spring Boot | React | Docker
-
