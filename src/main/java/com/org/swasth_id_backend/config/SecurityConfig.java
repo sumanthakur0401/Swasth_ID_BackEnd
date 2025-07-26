@@ -63,9 +63,11 @@ public class SecurityConfig {
 								"/swagger-ui/index.html",
 								"/v3/api-docs/**",
 								"/swagger-ui/**"
+
 						).permitAll()
 						.requestMatchers("/api/auth/admin/**").hasRole("ADMIN")
 						.requestMatchers("/api/auth/user/**").hasAnyRole("USER", "ADMIN")
+
 						
 						.anyRequest().authenticated())
 						.oauth2Login(oauth->{
