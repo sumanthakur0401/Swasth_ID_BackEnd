@@ -112,4 +112,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(customErrorMessageDto, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<CustomErrorMessageDto> resourceAlreadyExistsException(ResourceAlreadyExistsException ex, WebRequest webRequest) {
+        CustomErrorMessageDto error = new CustomErrorMessageDto();
+        error.setError(ex.getMessage());
+        error.setPath(webRequest.getDescription(false));
+        error.setStatus(HttpStatus.CONFLICT.value());
+        error.setTimestamp(LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+
 }
