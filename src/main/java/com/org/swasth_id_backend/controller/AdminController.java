@@ -34,14 +34,12 @@ import java.util.Map;
 @Tag(name = "Admin Controller", description = "Admin Controller to perform Admin operation")
 public class AdminController {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminController.class);
     private final UserService userService;
     private final RoleService roleService;
     private final VerificationTokenService verificationTokenService;
     private final PasswordResetOtpService passwordResetOtpService;
     private final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
     public AdminController(UserService userService,
                            RoleService roleService,
                            VerificationTokenService verificationTokenService,

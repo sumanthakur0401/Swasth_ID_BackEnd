@@ -117,6 +117,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			Role adminRole;
 			Role userRole;
+			Role doctorRole;
+			Role patientRole;
 
 			// Check and create ROLE_ADMIN
 			Optional<Role> optionalAdminRole = roleRepo.findByRole("ROLE_ADMIN");
@@ -140,6 +142,28 @@ public class UserServiceImpl implements UserService {
 						.description("User role for patients/doctors")
 						.build();
 				userRole = roleRepo.save(userRole);
+			}
+
+			Optional<Role> optionalDoctorRole = roleRepo.findByRole("ROLE_DOCTOR");
+			if (optionalDoctorRole.isPresent()) {
+				doctorRole = optionalDoctorRole.get();
+			} else {
+				doctorRole = Role.builder()
+						.role("ROLE_DOCTOR")
+						.description("Doctor role for doctors")
+						.build();
+				doctorRole = roleRepo.save(doctorRole);
+			}
+
+			Optional<Role> optionalPatient = roleRepo.findByRole("ROLE_PATIENT");
+			if (optionalPatient.isPresent()) {
+				patientRole = optionalUserRole.get();
+			} else {
+				patientRole = Role.builder()
+						.role("ROLE_PATIENT")
+						.description("User role for patients")
+						.build();
+				patientRole = roleRepo.save(patientRole);
 			}
 
 			// Create admin user if not exists
