@@ -1,6 +1,6 @@
 package com.org.swasth_id_backend.repo;
 
-import com.org.swasth_id_backend.entity.Doctor;
+import com.org.swasth_id_backend.entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 @Repository
-public interface DoctorRepo extends JpaRepository<Doctor, UUID> {
-    boolean existsByLicenseNumber(String licenseNumber);
-    boolean existsByPhoneNumber(String phoneNumber);
+public interface PatientRepo extends JpaRepository<Patient, UUID> {
+    Optional<Patient> findByUserId(UUID userId);
+    List<Patient> findByBloodGroupIgnoreCase(String bloodGroup);
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DoctorDto> createDoctor(@RequestBody DoctorDto doctorDto) throws ResourceAlreadyExistsException, ResourceNotFoundException {
         log.info("Received request to create doctor: {}", doctorDto);
         DoctorDto created = doctorService.createDoctor(doctorDto);
@@ -31,6 +33,7 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
     public ResponseEntity<DoctorDto> getDoctorById(@PathVariable UUID id) throws ResourceNotFoundException {
         log.info("Fetching doctor by ID: {}", id);
         DoctorDto doctor = doctorService.getDoctorById(id);
@@ -39,6 +42,7 @@ public class DoctorController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<DoctorDto>> getAllDoctors() {
         log.info("Fetching all doctors");
         List<DoctorDto> doctors = doctorService.getAllDoctors();
@@ -47,6 +51,7 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
     public ResponseEntity<DoctorDto> updateDoctor(@PathVariable UUID id, @RequestBody DoctorDto doctorDto) throws ResourceNotFoundException {
         log.info("Updating doctor with ID: {}", id);
         DoctorDto updated = doctorService.updateDoctor(id, doctorDto);
@@ -55,6 +60,7 @@ public class DoctorController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteDoctor(@PathVariable UUID id) throws ResourceNotFoundException {
         log.warn("Deleting doctor with ID: {}", id);
         doctorService.deleteDoctor(id);
@@ -63,6 +69,7 @@ public class DoctorController {
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
     public ResponseEntity<List<DoctorDto>> searchDoctors(
             @RequestParam(required = false) String specialization,
             @RequestParam(required = false) String hospital
@@ -74,6 +81,7 @@ public class DoctorController {
     }
 
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
     public ResponseEntity<DoctorDto> getDoctorByUserId(@PathVariable UUID userId) throws ResourceNotFoundException {
         log.info("Fetching doctor by userId: {}", userId);
         DoctorDto doctor = doctorService.getDoctorByUserId(userId);
