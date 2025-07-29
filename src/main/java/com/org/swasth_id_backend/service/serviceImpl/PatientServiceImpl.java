@@ -1,19 +1,26 @@
 package com.org.swasth_id_backend.service.serviceImpl;
 
 import com.org.swasth_id_backend.dto.PatientDto;
+import com.org.swasth_id_backend.dto.UserPatientDto;
 import com.org.swasth_id_backend.entity.Patient;
 import com.org.swasth_id_backend.entity.User;
 import com.org.swasth_id_backend.exception.ResourceAlreadyExistsException;
 import com.org.swasth_id_backend.exception.ResourceNotFoundException;
+import com.org.swasth_id_backend.exception.UserAlreadyExistsException;
 import com.org.swasth_id_backend.mapper.PatientMapper;
+import com.org.swasth_id_backend.mapper.UserMapper;
 import com.org.swasth_id_backend.repo.PatientRepo;
 import com.org.swasth_id_backend.repo.UserRepo;
 import com.org.swasth_id_backend.service.PatientService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,48 +30,56 @@ public class PatientServiceImpl implements PatientService {
 
     private final PatientRepo patientRepository;
     private final UserRepo userRepository;
-    private final PatientMapper patientMapper;
+    private final UserDetailsServiceImpl userDetailsService;
 
-
+    @Transactional
     @Override
-    public PatientDto createPatient(PatientDto patientDto) throws ResourceAlreadyExistsException, ResourceNotFoundException {
+    public UserPatientDto createPatient(UserPatientDto userPatientDto) throws ResourceNotFoundException, UserAlreadyExistsException {
+        Optional<User> user = userRepository.findByEmail(userPatientDto.getUserDto().getEmail());
+        if(user.isPresent()) throw new UserAlreadyExistsException("User with this email "+ userPatientDto.getUserDto().getEmail() +" already exists");
+        user = userRepository.findByUsername(userPatientDto.getUserDto().getUsername());
+        if(user.isPresent()) throw new UserAlreadyExistsException("User with this username "+ userPatientDto.getUserDto().getUsername() +" already exists");
+        User newUser = UserMapper.userDtoToUser(userPatientDto.getUserDto());
+        newUser.setAge(calculateAge(LocalDate.parse(userPatientDto.getUserDto().getDob())));
+        newUser = userDetailsService.addUserByRole(newUser, "ROLE_PATIENT");
+        Patient patient = PatientMapper.toEntity(userPatientDto.getPatientDto());
+        patient.setUser(newUser);
+        patient = patientRepository.save(patient);
+        userPatientDto.setUserDto(UserMapper.userToUserDto(newUser));
+        userPatientDto.setPatientDto(PatientMapper.toDto(patient));
+        return userPatientDto;
+    }
 
-        if (patientRepository.findByUserId(patientDto.getUserId()).isPresent()) {
-            throw new ResourceAlreadyExistsException("Patient already exists for user ID " + patientDto.getUserId());
+    private Integer calculateAgeBeforeSaving(LocalDate dob) {
+        if (dob != null) {
+             return calculateAge(dob);
         }
+        return null;
+    }
 
-        Patient patient = patientMapper.toEntity(patientDto);
-        LocalDateTime now = LocalDateTime.now();
-        patient.setCreatedAt(now);
-        patient.setLastUpdate(now);
-        if (patientDto.getUserId() != null) {
-            User user = userRepository.findById(patientDto.getUserId())
-                    .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + patientDto.getUserId()));
-            patient.setUser(user);
-        }
-
-        return patientMapper.toDto(patientRepository.save(patient));
+    private int calculateAge(LocalDate dob) {
+        return Period.between(dob, LocalDate.now()).getYears();
     }
 
     @Override
     public PatientDto getPatientById(UUID id) throws ResourceNotFoundException {
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient not found with ID" + id));
-        return patientMapper.toDto(patient);
+        return PatientMapper.toDto(patient);
     }
 
     @Override
     public PatientDto getPatientByUserId(UUID userId) throws ResourceNotFoundException {
         Patient patient = patientRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("No Patient found with this user ID" + userId));
-        return patientMapper.toDto(patient);
+        return PatientMapper.toDto(patient);
     }
 
     @Override
     public List<PatientDto> getAllPatients() {
         return patientRepository.findAll()
                 .stream()
-                .map(patientMapper::toDto)
+                .map(PatientMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -105,9 +120,8 @@ public class PatientServiceImpl implements PatientService {
             patient.setUser(user);
         }
 
-        return patientMapper.toDto(patientRepository.save(patient));
+        return PatientMapper.toDto(patientRepository.save(patient));
     }
-
 
     @Override
     public void deletePatient(UUID id) throws ResourceNotFoundException {
@@ -120,7 +134,7 @@ public class PatientServiceImpl implements PatientService {
     public List<PatientDto> getPatientsByBloodGroup(String bloodGroup) {
         return patientRepository.findByBloodGroupIgnoreCase(bloodGroup)
                 .stream()
-                .map(patientMapper::toDto)
+                .map(PatientMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

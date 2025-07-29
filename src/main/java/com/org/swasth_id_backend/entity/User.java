@@ -1,8 +1,10 @@
 package com.org.swasth_id_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +35,9 @@ public class User extends BaseEntity{
 
     @Column(nullable = false)
     private String password;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dob;
 
     @Column(nullable = false)
     private Integer age;

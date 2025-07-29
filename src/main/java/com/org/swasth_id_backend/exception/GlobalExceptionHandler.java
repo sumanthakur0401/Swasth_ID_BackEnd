@@ -122,5 +122,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<CustomErrorMessageDto> userAlreadyExistsException(UserAlreadyExistsException ex, WebRequest webRequest) {
+        CustomErrorMessageDto error = new CustomErrorMessageDto();
+        error.setError(ex.getMessage());
+        error.setPath(webRequest.getDescription(false));
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setTimestamp(LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 
 }

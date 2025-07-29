@@ -7,13 +7,12 @@ import com.org.swasth_id_backend.entity.Patient;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 public class PatientMapper {
 
-    public PatientDto toDto(Patient patient) {
+    public static PatientDto toDto(Patient patient) {
         if (patient == null) {
             return null;
         }
@@ -40,7 +39,7 @@ public class PatientMapper {
                 .build();
     }
 
-    public Patient toEntity(PatientDto dto) {
+    public static Patient toEntity(PatientDto dto) {
         if (dto == null) {
             return null;
         }

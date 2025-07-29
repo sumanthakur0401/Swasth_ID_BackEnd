@@ -11,7 +11,6 @@ import com.org.swasth_id_backend.service.*;
 import com.org.swasth_id_backend.service.serviceImpl.UserDetailsServiceImpl;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -117,7 +116,6 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @Transactional
     @PostMapping("/add-user")
     public ResponseEntity<Map<String, String>> addUser(@RequestBody UserDto userDto) throws ResourceNotFoundException {
         Map<String, String> response = new HashMap<>();
