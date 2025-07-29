@@ -53,8 +53,17 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setIsVerified(false);
 		user.setIsOtpVerified(false);
-		user.getRoles().add(roleService.getRoleByName("ROLE_USER"));
+		user.getRoles().add(roleService.getRoleByName("ROLE_PATIENT"));
 		userRepo.save(user);
+	}
+
+	@Transactional
+	public User addUserByRole(User user, String role) throws ResourceNotFoundException {
+		user.setPassword(encoder.encode(user.getPassword()));
+		user.setIsVerified(false);
+		user.setIsOtpVerified(false);
+		user.getRoles().add(roleService.getRoleByName(role));
+		return userRepo.save(user);
 	}
 
 	@Transactional
