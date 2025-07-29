@@ -2,7 +2,6 @@ package com.org.swasth_id_backend.service;
 
 import com.org.swasth_id_backend.dto.PatientDto;
 import com.org.swasth_id_backend.dto.UserPatientDto;
-import com.org.swasth_id_backend.exception.ResourceAlreadyExistsException;
 import com.org.swasth_id_backend.exception.ResourceNotFoundException;
 import com.org.swasth_id_backend.exception.UserAlreadyExistsException;
 
